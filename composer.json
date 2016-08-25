@@ -1,9 +1,10 @@
 {
-	"name": "apigen/theme-bootstrap",
-	"description": "Twitter Bootstrap theme for ApiGen",
-	"homepage": "http://apigen.org/",
+	"name": "19peaches/theme-bootstrap",
+	"description": "Custom Bootstrap theme for 19Peaches/ApiGen",
+	"homepage": "http://19peaches.com/",
 	"license": "MIT",
 	"authors": [
+		{ "name": "Vince Kronlein", "email": "vince@19peaches.com" },
 		{ "name": "Tomáš Votruba", "email": "tomas.vot@gmail.com" },
 		{ "name": "Olivier Laviale", "homepage": "https://github.com/olvlvl" }
 	],
