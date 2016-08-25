@@ -8,7 +8,40 @@ $(window).load(function() {
 	var $splitter = $('#splitter');
 	var $groups = $('#groups');
 	var $content = $('#content');
+	
+	if ($('#source').length > 0) {
+		var editor = ace.edit('source');
+			
+		editor.$blockScrolling = Infinity;
 
+		editor.setOptions({
+			theme: 'ace/theme/tomorrow_night_eighties',
+			mode: 'ace/mode/php',
+			fontSize: '13px',
+			maxLines: 10000,
+			readOnly: true
+		});
+
+		if (location.hash) {
+			var Range = ace.require('ace/range').Range;
+
+			var lines = location.hash.substr(1).split('-');
+			var start = Number(lines[0]);
+			var end   = Number(lines[1]);
+
+			editor.gotoLine(start);
+			editor.session.addMarker(new Range(start - 1, 0, end, 0), "ace_active-line", "background");
+		}
+
+		$('#source').fadeIn();
+	}
+
+	if ($('.anchor').length > 0) {
+		$(document).on('click', '.anchor', function(e) {
+			e.preventDefault();
+		});
+	}
+	
 	// Menu
 
 	// Hide deep packages and namespaces
@@ -234,7 +267,7 @@ $(window).load(function() {
 
 		var $firstLine = $('#' + parseInt(matches[0]));
 		if ($firstLine.length > 0) {
-			$right.scrollTop($firstLine.position().top);
+			$document.scrollTop($firstLine.offset().top);
 		}
 	}
 
@@ -243,8 +276,8 @@ $(window).load(function() {
 	$('.l a').click(function(event) {
 		event.preventDefault();
 
-		var selectedLine = $(this).parent().index() + 1;
-		var $selectedLine = $('pre.code .l').eq(selectedLine - 1);
+		var $selectedLine = $(this).parent();
+		var selectedLine = parseInt($selectedLine.attr('id'));
 
 		if (event.shiftKey) {
 			if (lastLine) {
